@@ -42,6 +42,7 @@ class _SplashScreen extends State<SplashScreen> {
 
   Widget logo() {
     return Container(
+        margin: EdgeInsets.all(10),
         height: 300,
         width: 400,
         child: Image(
@@ -51,7 +52,7 @@ class _SplashScreen extends State<SplashScreen> {
   }
 
   _goToHome() {
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 1), () {
       Navigator.of(context)
           .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
     });

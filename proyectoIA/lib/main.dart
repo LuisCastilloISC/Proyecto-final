@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:proyectoIA/views/MainPage/MainPage.dart';
+import 'package:proyectoIA/views/ScanPage/ScanPagePet.dart';
+import 'package:proyectoIA/views/ScanPage/ScanPagePlant.dart';
 import 'package:proyectoIA/views/SplashScreen/SplashScreen.dart';
 
 void main() {
@@ -34,6 +36,12 @@ class RouteGenerator {
       case 'splash':
         return MaterialPageRoute(
             builder: (BuildContext context) => SplashScreen());
+      case 'petScan':
+        return MaterialPageRoute(
+            builder: (BuildContext context) => ScanPagePet());
+      case 'plantScan':
+        return MaterialPageRoute(
+            builder: (BuildContext context) => ScanPagePlant());
     }
   }
 }

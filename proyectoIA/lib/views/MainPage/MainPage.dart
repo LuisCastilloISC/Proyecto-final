@@ -1,114 +1,247 @@
-import 'dart:io';
-
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:proyectoIA/helpers/responsiveHelper.dart';
 
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
-  var img;
-  final ImagePicker _picker = ImagePicker();
+class _MainPageState extends State<MainPage>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+  @override
+  void initState() {
+    super.initState();
+    _tabController = new TabController(vsync: this, length: 2);
+    _tabController.addListener(_handleTabSelection);
+  }
+
+  _handleTabSelection() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Inicio')),
+      appBar: _buildAppBar(),
       body: _buildBody(),
-      bottomNavigationBar: _buildButtonsBar(),
     );
+  }
+
+  _buildAppBar() {
+    final Widget tabs = TabBar(
+      indicatorColor: Colors.green,
+      controller: _tabController,
+      labelColor: Colors.white,
+      indicatorSize: TabBarIndicatorSize.tab,
+      unselectedLabelColor: Colors.blueGrey,
+      indicator: new BubbleTabIndicator(
+        insets: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+        padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+        indicatorHeight: 38.0,
+        indicatorColor: Colors.green,
+        tabBarIndicatorSize: TabBarIndicatorSize.tab,
+      ),
+      tabs: <Widget>[
+        Tab(
+          text: "Animales",
+        ),
+        Tab(
+          text: "Plantas",
+        )
+      ],
+    );
+
+    return AppBar(
+        elevation: 1,
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Bienvenido",
+            style: TextStyle(
+              fontSize: 28,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        bottom: tabs);
   }
 
   _buildBody() {
-    return SafeArea(
-        child: ListView(children: [
-      Column(children: [
-        Center(
-            child: Column(
-          children: [
-            img == null
-                ? Container(
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.image,
-                          size: 300,
-                          color: Colors.green,
-                        ),
-                        Text("Seleccione o tome una foto de una planta.")
-                      ],
-                    ),
-                  )
-                : Container(
-                    child: Column(children: [
-                    _plantImage(),
-                    Container(
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          'Lorem ipsum dolor sit ametssssssssssssssssssssssssssssssssssssssssss, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(fontSize: 16),
-                        )),
-                    Container(
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          ' Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, asdadssadsaddsadsaddsadsunt in culpa qui officia deserunt mollit anim id est laborum.',
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(fontSize: 16),
-                        ))
-                  ]))
-          ],
-        )),
-      ])
-    ]));
+    return TabBarView(
+        physics: NeverScrollableScrollPhysics(),
+        controller: _tabController,
+        children: <Widget>[_petView(), _plantView()]);
   }
 
-  _buildButtonsBar() {
-    return ButtonBar(
-      alignment: MainAxisAlignment.center,
-      children: [
-        Container(
-            width: 500,
-            child: FlatButton(
-                color: Colors.green,
-                onPressed: () {
-                  _getImage(1);
-                },
-                child: Text("Tomar una foto"))),
-        Container(
-            width: 500,
-            child: FlatButton(
-                color: Colors.green,
-                onPressed: () {
-                  _getImage(2);
-                },
-                child: Text("Tomar desde la galeria")))
-      ],
+  _petView() {
+    ResponsiveHelper responsive = new ResponsiveHelper(context);
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+              height: 220,
+              child: Stack(
+                children: <Widget>[
+                  // ============= Img Avatar ==============//
+                  Container(
+                    height: responsive.percentHeight(0.3),
+                    width: responsive.percentWidth(1),
+                    child: Image.asset('assets/images/dev/pet.jpg'),
+                  ),
+                  // ============= Filtro de Img ==============//
+                  Container(
+                    height: responsive.percentHeight(0.30),
+                    color: Colors.black.withOpacity(0.3),
+                  ),
+                  // ============= Datos ==============//
+                  Container(
+                    margin: EdgeInsets.only(top: responsive.percentHeight(0.1)),
+                    padding: EdgeInsets.all(15),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          'Animal',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: responsive.restaurantPageTitleSize()),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Divider(
+                          color: Colors.white,
+                          height: 30,
+                          thickness: 1.5,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                      ],
+                    ),
+                  ),
+                  // ============= App Bar ==============//
+                ],
+              )),
+          SizedBox(
+            height: 50,
+          ),
+          Text('Descripcion animal'),
+          SizedBox(
+            height: 100,
+          ),
+          Container(
+              height: 50,
+              width: 200,
+              child: RaisedButton(
+                splashColor: Colors.green,
+                elevation: 0,
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(10),
+                    side: BorderSide(color: Colors.green)),
+                child: Text('Escanear',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.green,
+                    )),
+                onPressed: () => Navigator.pushNamed(context, 'petScan'),
+              ))
+        ],
+      ),
     );
   }
 
-  _getImage(var source) async {
-    var file = await _picker.getImage(
-        source: source == 1 ? ImageSource.camera : ImageSource.gallery);
-    if (file != null) {
-      setState(() {
-        img = file;
-      });
-      source = 0;
-    }
-  }
-
-  _plantImage() {
-    return Center(
-        child: Container(
-            padding: EdgeInsets.all(10),
-            width: 500,
-            height: 500,
-            child: Image.file(
-              File(img.path),
-              fit: BoxFit.cover,
-            )));
+  _plantView() {
+    ResponsiveHelper responsive = new ResponsiveHelper(context);
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+              height: 220,
+              child: Stack(
+                children: <Widget>[
+                  // ============= Img Avatar ==============//
+                  Container(
+                    height: responsive.percentHeight(0.3),
+                    width: responsive.percentWidth(1),
+                    child: Image.asset('assets/images/dev/plant.jpg'),
+                  ),
+                  // ============= Filtro de Img ==============//
+                  Container(
+                    height: responsive.percentHeight(0.30),
+                    color: Colors.black.withOpacity(0.3),
+                  ),
+                  // ============= Datos ==============//
+                  Container(
+                    margin: EdgeInsets.only(top: responsive.percentHeight(0.1)),
+                    padding: EdgeInsets.all(15),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          'Planta',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: responsive.restaurantPageTitleSize()),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Divider(
+                          color: Colors.white,
+                          height: 30,
+                          thickness: 1.5,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                      ],
+                    ),
+                  ),
+                  // ============= App Bar ==============//
+                ],
+              )),
+          SizedBox(
+            height: 50,
+          ),
+          Text('Descripcion Planta'),
+          SizedBox(
+            height: 100,
+          ),
+          Container(
+              height: 50,
+              width: 200,
+              child: RaisedButton(
+                splashColor: Colors.green,
+                elevation: 0,
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(10),
+                    side: BorderSide(color: Colors.green)),
+                child: Text('Escanear',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.green,
+                    )),
+                onPressed: () => Navigator.pushNamed(context, 'plantScan'),
+              ))
+        ],
+      ),
+    );
   }
 }
