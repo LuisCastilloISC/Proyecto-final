@@ -31,16 +31,16 @@ class _MainPageState extends State<MainPage>
 
   _buildAppBar() {
     final Widget tabs = TabBar(
-      indicatorColor: Colors.green,
+      indicatorColor: Colors.white,
       controller: _tabController,
-      labelColor: Colors.white,
+      labelColor: Colors.green,
       indicatorSize: TabBarIndicatorSize.tab,
       unselectedLabelColor: Colors.blueGrey,
       indicator: new BubbleTabIndicator(
         insets: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
         padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
         indicatorHeight: 38.0,
-        indicatorColor: Colors.green,
+        indicatorColor: Colors.white,
         tabBarIndicatorSize: TabBarIndicatorSize.tab,
       ),
       tabs: <Widget>[

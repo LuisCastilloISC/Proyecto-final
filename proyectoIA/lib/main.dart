@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primaryColor: Colors.green,
           accentColor: Colors.green,
-          buttonColor: Colors.green,
+          buttonColor: Colors.white,
           fontFamily: 'AvenirMedium'),
       initialRoute: 'splash',
       onGenerateRoute: RouteGenerator.generateLoginRoutes,
