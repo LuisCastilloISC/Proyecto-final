@@ -1,13 +1,11 @@
 import 'dart:io';
 import 'package:proyectoIA/helpers/responsiveHelper.dart';
 import 'package:proyectoIA/widgets/camera.dart';
-
-import '../../widgets/customTile.dart' as custom;
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'dart:async';
 import 'package:camera/camera.dart';
+import '../../helpers/colors.dart' as fcolor;
 
 class ScanPagePlant extends StatefulWidget {
   @override
@@ -16,17 +14,17 @@ class ScanPagePlant extends StatefulWidget {
 
 class _ScanPagePlant extends State<ScanPagePlant> {
   var img;
-  final ImagePicker _picker = ImagePicker();
+  
   String _imagePath;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.green),
+        iconTheme: IconThemeData(color: fcolor.green),
         backgroundColor: Colors.white,
         title: Text(
           'Escaner de planta',
-          style: TextStyle(color: Colors.green),
+          style: TextStyle(color: fcolor.green),
         ),
       ),
       body: _imagePath != null
@@ -90,16 +88,16 @@ class _ScanPagePlant extends State<ScanPagePlant> {
     return Container(
         padding: EdgeInsets.all(10),
         child: RaisedButton(
-          splashColor: Colors.green,
+          splashColor: fcolor.green,
           elevation: 0,
           color: Colors.white,
           shape: RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(10),
-              side: BorderSide(color: Colors.green)),
+              side: BorderSide(color: fcolor.green)),
           child: Text('Escanear',
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.green,
+                color: fcolor.green,
               )),
           onPressed: openCamera,
         ));
@@ -139,31 +137,31 @@ class _ScanPagePlant extends State<ScanPagePlant> {
           Divider(
             indent: responsive.percentWidth(0.1),
             endIndent: responsive.percentWidth(0.1),
-            color: Colors.green,
+            color: fcolor.green,
           ),
           _buildDescripcion(),
           Divider(
             indent: responsive.percentWidth(0.1),
             endIndent: responsive.percentWidth(0.1),
-            color: Colors.green,
+            color: fcolor.green,
           ),
           _buildFacts(),
           Divider(
             indent: responsive.percentWidth(0.1),
             endIndent: responsive.percentWidth(0.1),
-            color: Colors.green,
+            color: fcolor.green,
           ),
           _buildCaracteristics(),
           Divider(
             indent: responsive.percentWidth(0.1),
             endIndent: responsive.percentWidth(0.1),
-            color: Colors.green,
+            color: fcolor.green,
           ),
           _buildConditions(),
           Divider(
             indent: responsive.percentWidth(0.1),
             endIndent: responsive.percentWidth(0.1),
-            color: Colors.green,
+            color: fcolor.green,
           ),
           _buildCare()
         ],
@@ -183,7 +181,7 @@ class _ScanPagePlant extends State<ScanPagePlant> {
                 children: [
                   Icon(
                     Icons.image,
-                    color: Colors.green,
+                    color: fcolor.green,
                   ),
                   SizedBox(
                     width: 10,
@@ -191,7 +189,7 @@ class _ScanPagePlant extends State<ScanPagePlant> {
                   Text(
                     'Galeria',
                     style: TextStyle(
-                        color: Colors.green,
+                        color: fcolor.green,
                         fontWeight: FontWeight.normal,
                         fontSize: 20),
                   ),
@@ -245,7 +243,7 @@ class _ScanPagePlant extends State<ScanPagePlant> {
           Row(children: [
             Icon(
               Icons.description,
-              color: Colors.green,
+              color: fcolor.green,
             ),
             SizedBox(
               width: 10,
@@ -253,7 +251,7 @@ class _ScanPagePlant extends State<ScanPagePlant> {
             Text(
               'Descripción',
               style: TextStyle(
-                  color: Colors.green,
+                  color: fcolor.green,
                   fontWeight: FontWeight.normal,
                   fontSize: 20),
             ),
@@ -275,7 +273,7 @@ class _ScanPagePlant extends State<ScanPagePlant> {
           Row(children: [
             Icon(
               Icons.face,
-              color: Colors.green,
+              color: fcolor.green,
             ),
             SizedBox(
               width: 10,
@@ -283,7 +281,7 @@ class _ScanPagePlant extends State<ScanPagePlant> {
             Text(
               'Curiosidades',
               style: TextStyle(
-                  color: Colors.green,
+                  color: fcolor.green,
                   fontWeight: FontWeight.normal,
                   fontSize: 20),
             ),
@@ -307,7 +305,7 @@ class _ScanPagePlant extends State<ScanPagePlant> {
               Row(children: [
                 Icon(
                   Icons.check,
-                  color: Colors.green,
+                  color: fcolor.green,
                 ),
                 SizedBox(
                   width: 10,
@@ -315,7 +313,7 @@ class _ScanPagePlant extends State<ScanPagePlant> {
                 Text(
                   'Caracteristicas',
                   style: TextStyle(
-                      color: Colors.green,
+                      color: fcolor.green,
                       fontWeight: FontWeight.normal,
                       fontSize: 20),
                 ),
@@ -336,7 +334,7 @@ class _ScanPagePlant extends State<ScanPagePlant> {
             children: [
               Icon(
                 Icons.nature,
-                color: Colors.green,
+                color: fcolor.green,
               ),
               SizedBox(
                 width: 10,
@@ -344,7 +342,7 @@ class _ScanPagePlant extends State<ScanPagePlant> {
               Text(
                 'Condiciones',
                 style: TextStyle(
-                    color: Colors.green,
+                    color: fcolor.green,
                     fontWeight: FontWeight.normal,
                     fontSize: 20),
               )
@@ -419,7 +417,9 @@ class _ScanPagePlant extends State<ScanPagePlant> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Column(
-                    children: [Icon(Icons.wb_iridescent, color: Colors.lightGreen)],
+                    children: [
+                      Icon(Icons.wb_iridescent, color: Colors.lightGreen)
+                    ],
                   ),
                   SizedBox(
                     width: 10,
@@ -443,37 +443,6 @@ class _ScanPagePlant extends State<ScanPagePlant> {
                   ))
                 ]),
           ),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    children: [Icon(Icons.star, color: Colors.lightGreen)],
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Flexible(
-                      child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Difilcultad',
-                          style: TextStyle(
-                              color: Colors.lightGreen,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 16)),
-                      Container(
-                          child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
-                        textAlign: TextAlign.justify,
-                      ))
-                    ],
-                  ))
-                ]),
-          )
         ]));
   }
 
@@ -488,7 +457,7 @@ class _ScanPagePlant extends State<ScanPagePlant> {
             children: [
               Icon(
                 Icons.local_hospital,
-                color: Colors.green,
+                color: fcolor.green,
               ),
               SizedBox(
                 width: 10,
@@ -496,7 +465,7 @@ class _ScanPagePlant extends State<ScanPagePlant> {
               Text(
                 'Cuidados',
                 style: TextStyle(
-                    color: Colors.green,
+                    color: fcolor.green,
                     fontWeight: FontWeight.normal,
                     fontSize: 20),
               )

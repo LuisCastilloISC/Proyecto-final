@@ -4,6 +4,7 @@ import 'package:proyectoIA/views/MainPage/MainPage.dart';
 import 'package:proyectoIA/views/ScanPage/ScanPagePet.dart';
 import 'package:proyectoIA/views/ScanPage/ScanPagePlant.dart';
 import 'package:proyectoIA/views/SplashScreen/SplashScreen.dart';
+import './helpers/colors.dart' as fcolor;
 
 void main() {
   runApp(MyApp());
@@ -16,8 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primaryColor: Colors.green,
-          accentColor: Colors.green,
+          primaryColor: fcolor.green,
+          accentColor: fcolor.green,
           buttonColor: Colors.white,
           fontFamily: 'AvenirMedium'),
       initialRoute: 'splash',

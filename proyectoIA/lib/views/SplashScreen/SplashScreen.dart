@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import '../../helpers/colors.dart' as fcolor;
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _SplashScreen extends State<SplashScreen> {
     FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
     return Scaffold(
         body: Container(
-      color: Colors.white,
+      color: fcolor.black,
       width: double.infinity,
       child: (Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -32,9 +33,18 @@ class _SplashScreen extends State<SplashScreen> {
           SizedBox(
             height: 100,
           ),
-          CircularProgressIndicator(
-            backgroundColor: Colors.green,
-          )
+          Text(
+            "Orbis\n",
+            style: TextStyle(fontSize: 30, color: Colors.white),
+          ),
+          Text(
+            "Conoce tu mundo",
+            style: TextStyle(fontSize: 20, color: Colors.white),
+          ),
+          SizedBox(
+            height: 100,
+          ),
+          CircularProgressIndicator()
         ],
       )),
     ));

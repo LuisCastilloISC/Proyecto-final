@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:proyectoIA/helpers/responsiveHelper.dart';
-
+import '../../helpers/colors.dart' as fcolor;
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
@@ -33,7 +33,7 @@ class _MainPageState extends State<MainPage>
     final Widget tabs = TabBar(
       indicatorColor: Colors.white,
       controller: _tabController,
-      labelColor: Colors.green,
+      labelColor: fcolor.green,
       indicatorSize: TabBarIndicatorSize.tab,
       unselectedLabelColor: Colors.blueGrey,
       indicator: new BubbleTabIndicator(
@@ -144,16 +144,16 @@ class _MainPageState extends State<MainPage>
               height: 50,
               width: 200,
               child: RaisedButton(
-                splashColor: Colors.green,
+                splashColor: fcolor.green,
                 elevation: 0,
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(10),
-                    side: BorderSide(color: Colors.green)),
+                    side: BorderSide(color: fcolor.green)),
                 child: Text('Escanear',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.green,
+                      color: fcolor.green,
                     )),
                 onPressed: () => Navigator.pushNamed(context, 'petScan'),
               ))
@@ -227,16 +227,16 @@ class _MainPageState extends State<MainPage>
               height: 50,
               width: 200,
               child: RaisedButton(
-                splashColor: Colors.green,
+                splashColor: fcolor.green,
                 elevation: 0,
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(10),
-                    side: BorderSide(color: Colors.green)),
+                    side: BorderSide(color: fcolor.green)),
                 child: Text('Escanear',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.green,
+                      color: fcolor.green,
                     )),
                 onPressed: () => Navigator.pushNamed(context, 'plantScan'),
               ))
