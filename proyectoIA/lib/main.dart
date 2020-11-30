@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:proyectoIA/views/MainPage/MainPage.dart';
+import 'package:proyectoIA/views/ScanPage/ScanPage.dart';
 import 'package:proyectoIA/views/ScanPage/ScanPagePet.dart';
-import 'package:proyectoIA/views/ScanPage/ScanPagePlant.dart';
 import 'package:proyectoIA/views/SplashScreen/SplashScreen.dart';
 import './helpers/colors.dart' as fcolor;
 
@@ -40,9 +40,9 @@ class RouteGenerator {
       case 'petScan':
         return MaterialPageRoute(
             builder: (BuildContext context) => ScanPagePet());
-      case 'plantScan':
+      case 'Scan':
         return MaterialPageRoute(
-            builder: (BuildContext context) => ScanPagePlant());
+            builder: (BuildContext context) => ScanPage());
     }
   }
 }

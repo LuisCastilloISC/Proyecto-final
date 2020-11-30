@@ -2,19 +2,20 @@ import 'dart:io';
 import 'package:proyectoIA/helpers/responsiveHelper.dart';
 import 'package:proyectoIA/widgets/camera.dart';
 import 'package:flutter/material.dart';
-
+import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 import 'package:camera/camera.dart';
 import '../../helpers/colors.dart' as fcolor;
 
-class ScanPagePlant extends StatefulWidget {
+class ScanPage extends StatefulWidget {
   @override
-  _ScanPagePlant createState() => _ScanPagePlant();
+  _ScanPage createState() => _ScanPage();
 }
 
-class _ScanPagePlant extends State<ScanPagePlant> {
+class _ScanPage extends State<ScanPage> {
   var img;
-  
+  File _image;
+  final picker = ImagePicker();
   String _imagePath;
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class _ScanPagePlant extends State<ScanPagePlant> {
         iconTheme: IconThemeData(color: fcolor.green),
         backgroundColor: Colors.white,
         title: Text(
-          'Escaner de planta',
+          'Escaner',
           style: TextStyle(color: fcolor.green),
         ),
       ),
@@ -36,7 +37,10 @@ class _ScanPagePlant extends State<ScanPagePlant> {
           : Center(
               child: noImageWidget(),
             ),
-      bottomNavigationBar: fabWidget(),
+      bottomNavigationBar: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [fabWidget(), galeria()]),
     );
   }
 
@@ -85,8 +89,10 @@ class _ScanPagePlant extends State<ScanPagePlant> {
   }
 
   Widget fabWidget() {
+     ResponsiveHelper responsive = new ResponsiveHelper(context);
     return Container(
-        padding: EdgeInsets.all(10),
+      width: responsive.percentWidth(0.5),
+        padding: EdgeInsets.all(5),
         child: RaisedButton(
           splashColor: fcolor.green,
           elevation: 0,
@@ -101,6 +107,36 @@ class _ScanPagePlant extends State<ScanPagePlant> {
               )),
           onPressed: openCamera,
         ));
+  }
+
+  Widget galeria() {
+     ResponsiveHelper responsive = new ResponsiveHelper(context);
+    return Container(
+        padding: EdgeInsets.all(10),
+        width: responsive.percentWidth(0.5),
+        child: RaisedButton(
+            splashColor: fcolor.green,
+            elevation: 0,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(10),
+                side: BorderSide(color: fcolor.green)),
+            child: Text('Abrir galeria',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: fcolor.green,
+                )),
+            onPressed: () async {
+              final pickedFile =
+                  await picker.getImage(source: ImageSource.gallery);
+              setState(() {
+                if (pickedFile != null) {
+                  _imagePath = pickedFile.path;
+                } else {
+                  print('No image selected.');
+                }
+              });
+            }));
   }
 
   Future openCamera() async {

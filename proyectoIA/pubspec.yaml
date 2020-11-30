@@ -32,7 +32,7 @@ dependencies:
   camera: ^0.5.4
   path_provider: ^0.4.1
   bubble_tab_indicator: ^0.1.4
-  
+  image_picker: ^0.6.7+14
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:proyectoIA/helpers/responsiveHelper.dart';
 import '../../helpers/colors.dart' as fcolor;
+
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
@@ -26,6 +27,22 @@ class _MainPageState extends State<MainPage>
     return Scaffold(
       appBar: _buildAppBar(),
       body: _buildBody(),
+      bottomNavigationBar: Container(
+          padding: EdgeInsets.all(10),
+          child: RaisedButton(
+            splashColor: fcolor.green,
+            elevation: 0,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(10),
+                side: BorderSide(color: fcolor.green)),
+            child: Text('Escanear',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: fcolor.green,
+                )),
+            onPressed: () => Navigator.pushNamed(context, 'Scan'),
+          )),
     );
   }
 
@@ -140,23 +157,6 @@ class _MainPageState extends State<MainPage>
           SizedBox(
             height: 100,
           ),
-          Container(
-              height: 50,
-              width: 200,
-              child: RaisedButton(
-                splashColor: fcolor.green,
-                elevation: 0,
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(10),
-                    side: BorderSide(color: fcolor.green)),
-                child: Text('Escanear',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: fcolor.green,
-                    )),
-                onPressed: () => Navigator.pushNamed(context, 'petScan'),
-              ))
         ],
       ),
     );
@@ -223,23 +223,6 @@ class _MainPageState extends State<MainPage>
           SizedBox(
             height: 100,
           ),
-          Container(
-              height: 50,
-              width: 200,
-              child: RaisedButton(
-                splashColor: fcolor.green,
-                elevation: 0,
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(10),
-                    side: BorderSide(color: fcolor.green)),
-                child: Text('Escanear',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: fcolor.green,
-                    )),
-                onPressed: () => Navigator.pushNamed(context, 'plantScan'),
-              ))
         ],
       ),
     );
