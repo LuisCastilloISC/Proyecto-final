@@ -24,7 +24,7 @@ class _MainPageState extends State<MainPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold( backgroundColor:  fcolor.black,
       appBar: _buildAppBar(),
       body: _buildBody(),
       bottomNavigationBar: Container(
@@ -32,7 +32,7 @@ class _MainPageState extends State<MainPage>
           child: RaisedButton(
             splashColor: fcolor.green,
             elevation: 0,
-            color: Colors.white,
+            color: fcolor.black,
             shape: RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(10),
                 side: BorderSide(color: fcolor.green)),
@@ -48,7 +48,7 @@ class _MainPageState extends State<MainPage>
 
   _buildAppBar() {
     final Widget tabs = TabBar(
-      indicatorColor: Colors.white,
+      indicatorColor: fcolor.black,
       controller: _tabController,
       labelColor: fcolor.green,
       indicatorSize: TabBarIndicatorSize.tab,
@@ -57,7 +57,7 @@ class _MainPageState extends State<MainPage>
         insets: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
         padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
         indicatorHeight: 38.0,
-        indicatorColor: Colors.white,
+        indicatorColor: fcolor.black,
         tabBarIndicatorSize: TabBarIndicatorSize.tab,
       ),
       tabs: <Widget>[
@@ -73,7 +73,7 @@ class _MainPageState extends State<MainPage>
     return AppBar(
         elevation: 1,
         iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.white,
+        backgroundColor: fcolor.black,
         centerTitle: true,
         title: Align(
           alignment: Alignment.centerLeft,
@@ -81,7 +81,7 @@ class _MainPageState extends State<MainPage>
             "Bienvenido",
             style: TextStyle(
               fontSize: 28,
-              color: Colors.black,
+              color: fcolor.green,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -103,6 +103,7 @@ class _MainPageState extends State<MainPage>
         children: [
           Container(
               height: 220,
+              color: fcolor.black,
               child: Stack(
                 children: <Widget>[
                   // ============= Img Avatar ==============//
@@ -153,7 +154,7 @@ class _MainPageState extends State<MainPage>
           SizedBox(
             height: 50,
           ),
-          Text('Descripcion animal'),
+          Text('Descripcion animal',style: TextStyle(color:  fcolor.green),),
           SizedBox(
             height: 100,
           ),
@@ -219,7 +220,7 @@ class _MainPageState extends State<MainPage>
           SizedBox(
             height: 50,
           ),
-          Text('Descripcion Planta'),
+          Text('Descripcion Planta',style: TextStyle(color:fcolor.green),),
           SizedBox(
             height: 100,
           ),

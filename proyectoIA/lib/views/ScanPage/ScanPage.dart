@@ -20,9 +20,10 @@ class _ScanPage extends State<ScanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: fcolor.black,
       appBar: AppBar(
         iconTheme: IconThemeData(color: fcolor.green),
-        backgroundColor: Colors.white,
+        backgroundColor: fcolor.black,
         title: Text(
           'Escaner',
           style: TextStyle(color: fcolor.green),
@@ -52,7 +53,7 @@ class _ScanPage extends State<ScanPage> {
         Container(
           child: Icon(
             Icons.image,
-            color: Colors.grey,
+            color: fcolor.green,
           ),
           width: 60.0,
           height: 60.0,
@@ -62,7 +63,7 @@ class _ScanPage extends State<ScanPage> {
           child: Text(
             'No ha tomado una imagen',
             style: TextStyle(
-              color: Colors.grey,
+              color: fcolor.green,
               fontSize: 16.0,
             ),
           ),
@@ -89,14 +90,14 @@ class _ScanPage extends State<ScanPage> {
   }
 
   Widget fabWidget() {
-     ResponsiveHelper responsive = new ResponsiveHelper(context);
+    ResponsiveHelper responsive = new ResponsiveHelper(context);
     return Container(
-      width: responsive.percentWidth(0.5),
+        width: responsive.percentWidth(0.5),
         padding: EdgeInsets.all(5),
         child: RaisedButton(
           splashColor: fcolor.green,
           elevation: 0,
-          color: Colors.white,
+          color: fcolor.black,
           shape: RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(10),
               side: BorderSide(color: fcolor.green)),
@@ -110,14 +111,14 @@ class _ScanPage extends State<ScanPage> {
   }
 
   Widget galeria() {
-     ResponsiveHelper responsive = new ResponsiveHelper(context);
+    ResponsiveHelper responsive = new ResponsiveHelper(context);
     return Container(
         padding: EdgeInsets.all(10),
         width: responsive.percentWidth(0.5),
         child: RaisedButton(
             splashColor: fcolor.green,
             elevation: 0,
-            color: Colors.white,
+            color: fcolor.black,
             shape: RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(10),
                 side: BorderSide(color: fcolor.green)),
@@ -170,35 +171,50 @@ class _ScanPage extends State<ScanPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildimagesResult(),
-          Divider(
-            indent: responsive.percentWidth(0.1),
-            endIndent: responsive.percentWidth(0.1),
-            color: fcolor.green,
-          ),
+          Container(
+              decoration: BoxDecoration(
+                  color: fcolor.black, border: Border.all(color: fcolor.black)),
+              child: Divider(
+                  indent: responsive.percentWidth(0.1),
+                  endIndent: responsive.percentWidth(0.1),
+                  color: fcolor.green,
+                  thickness: 1)),
           _buildDescripcion(),
-          Divider(
-            indent: responsive.percentWidth(0.1),
-            endIndent: responsive.percentWidth(0.1),
-            color: fcolor.green,
-          ),
+          Container(
+              decoration: BoxDecoration(
+                  color: fcolor.black, border: Border.all(color: fcolor.black)),
+              child: Divider(
+                  indent: responsive.percentWidth(0.1),
+                  endIndent: responsive.percentWidth(0.1),
+                  color: fcolor.green,
+                  thickness: 1)),
           _buildFacts(),
-          Divider(
-            indent: responsive.percentWidth(0.1),
-            endIndent: responsive.percentWidth(0.1),
-            color: fcolor.green,
-          ),
+          Container(
+              decoration: BoxDecoration(
+                  color: fcolor.black, border: Border.all(color: fcolor.black)),
+              child: Divider(
+                  indent: responsive.percentWidth(0.1),
+                  endIndent: responsive.percentWidth(0.1),
+                  color: fcolor.green,
+                  thickness: 1)),
           _buildCaracteristics(),
-          Divider(
-            indent: responsive.percentWidth(0.1),
-            endIndent: responsive.percentWidth(0.1),
-            color: fcolor.green,
-          ),
+          Container(
+              decoration: BoxDecoration(
+                  color: fcolor.black, border: Border.all(color: fcolor.black)),
+              child: Divider(
+                  indent: responsive.percentWidth(0.1),
+                  endIndent: responsive.percentWidth(0.1),
+                  color: fcolor.green,
+                  thickness: 1)),
           _buildConditions(),
-          Divider(
-            indent: responsive.percentWidth(0.1),
-            endIndent: responsive.percentWidth(0.1),
-            color: fcolor.green,
-          ),
+          Container(
+              decoration: BoxDecoration(
+                  color: fcolor.black, border: Border.all(color: fcolor.black)),
+              child: Divider(
+                  indent: responsive.percentWidth(0.1),
+                  endIndent: responsive.percentWidth(0.1),
+                  color: fcolor.green,
+                  thickness: 1)),
           _buildCare()
         ],
       )),
@@ -208,6 +224,7 @@ class _ScanPage extends State<ScanPage> {
   Widget _buildimagesResult() {
     ResponsiveHelper responsive = new ResponsiveHelper(context);
     return Container(
+        color: fcolor.black,
         padding: EdgeInsets.only(left: 10, right: 10, top: 20),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -245,24 +262,28 @@ class _ScanPage extends State<ScanPage> {
                           borderRadius: BorderRadius.circular(40.0),
                           child: Image.asset('assets/images/dev/plant.jpg')),
                       decoration: new BoxDecoration(
+                          color: fcolor.black,
                           borderRadius: BorderRadius.circular(8.0))),
                   Container(
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(40.0),
                           child: Image.asset('assets/images/dev/plant.jpg')),
                       decoration: new BoxDecoration(
+                          color: fcolor.black,
                           borderRadius: BorderRadius.circular(8.0))),
                   Container(
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(40.0),
                           child: Image.asset('assets/images/dev/plant.jpg')),
                       decoration: new BoxDecoration(
+                          color: fcolor.black,
                           borderRadius: BorderRadius.circular(40.0))),
                   Container(
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(40.0),
                           child: Image.asset('assets/images/dev/plant.jpg')),
                       decoration: new BoxDecoration(
+                          color: fcolor.black,
                           borderRadius: BorderRadius.circular(40.0)))
                 ],
               )
@@ -271,6 +292,7 @@ class _ScanPage extends State<ScanPage> {
 
   _buildDescripcion() {
     return Container(
+        color: fcolor.black,
         padding: EdgeInsets.only(
           left: 15,
           right: 15,
@@ -295,12 +317,14 @@ class _ScanPage extends State<ScanPage> {
           Text(
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
             textAlign: TextAlign.justify,
+            style: TextStyle(color: fcolor.green),
           )
         ]));
   }
 
   _buildFacts() {
     return Container(
+        color: fcolor.black,
         padding: EdgeInsets.only(
           left: 15,
           right: 15,
@@ -325,12 +349,14 @@ class _ScanPage extends State<ScanPage> {
           Text(
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
             textAlign: TextAlign.justify,
+            style: TextStyle(color: fcolor.green),
           )
         ]));
   }
 
   _buildCaracteristics() {
     return Container(
+        color: fcolor.black,
         padding: EdgeInsets.only(
           left: 15,
           right: 15,
@@ -354,13 +380,20 @@ class _ScanPage extends State<ScanPage> {
                       fontSize: 20),
                 ),
               ]),
-              Text('Alto: 12'),
-              Text('Tamaño de hoja:12'),
+              Text(
+                'Alto: 12',
+                style: TextStyle(color: fcolor.green),
+              ),
+              Text(
+                'Tamaño de hoja:12',
+                style: TextStyle(color: fcolor.green),
+              ),
             ]));
   }
 
   _buildConditions() {
     return Container(
+        color: fcolor.black,
         padding: EdgeInsets.only(
           left: 15,
           right: 15,
@@ -410,6 +443,7 @@ class _ScanPage extends State<ScanPage> {
                           child: Text(
                         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
                         textAlign: TextAlign.justify,
+                        style: TextStyle(color: fcolor.green),
                       ))
                     ],
                   ))
@@ -441,6 +475,7 @@ class _ScanPage extends State<ScanPage> {
                           child: Text(
                         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
                         textAlign: TextAlign.justify,
+                        style: TextStyle(color: fcolor.green),
                       ))
                     ],
                   ))
@@ -474,6 +509,7 @@ class _ScanPage extends State<ScanPage> {
                           child: Text(
                         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
                         textAlign: TextAlign.justify,
+                        style: TextStyle(color: fcolor.green),
                       ))
                     ],
                   ))
@@ -484,6 +520,7 @@ class _ScanPage extends State<ScanPage> {
 
   _buildCare() {
     return Container(
+        color: fcolor.black,
         padding: EdgeInsets.only(
           left: 15,
           right: 15,
@@ -533,6 +570,7 @@ class _ScanPage extends State<ScanPage> {
                           child: Text(
                         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
                         textAlign: TextAlign.justify,
+                        style: TextStyle(color: fcolor.green),
                       ))
                     ],
                   ))
@@ -564,6 +602,7 @@ class _ScanPage extends State<ScanPage> {
                           child: Text(
                         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
                         textAlign: TextAlign.justify,
+                        style: TextStyle(color: fcolor.green),
                       ))
                     ],
                   ))
@@ -595,6 +634,7 @@ class _ScanPage extends State<ScanPage> {
                           child: Text(
                         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
                         textAlign: TextAlign.justify,
+                        style: TextStyle(color: fcolor.green),
                       ))
                     ],
                   ))
@@ -628,6 +668,7 @@ class _ScanPage extends State<ScanPage> {
                           child: Text(
                         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
                         textAlign: TextAlign.justify,
+                        style: TextStyle(color: fcolor.green),
                       ))
                     ],
                   ))
