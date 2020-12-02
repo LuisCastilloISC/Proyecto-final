@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:proyectoIA/helpers/blocProvider.dart';
 import 'package:proyectoIA/views/MainPage/MainPage.dart';
+import 'package:proyectoIA/views/ScanPage/ScanBloc.dart';
 import 'package:proyectoIA/views/ScanPage/ScanPage.dart';
 import 'package:proyectoIA/views/ScanPage/ScanPagePet.dart';
 import 'package:proyectoIA/views/SplashScreen/SplashScreen.dart';
@@ -40,9 +42,13 @@ class RouteGenerator {
       case 'petScan':
         return MaterialPageRoute(
             builder: (BuildContext context) => ScanPagePet());
-      case 'Scan':
+      
+             case 'Scan':
         return MaterialPageRoute(
-            builder: (BuildContext context) => ScanPage());
+            builder: (BuildContext context) => BlocProvider(
+                  bloc: ScanBloc(),
+                  child: ScanPage(),
+                ));
     }
   }
 }

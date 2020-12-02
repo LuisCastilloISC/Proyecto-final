@@ -33,7 +33,8 @@ dependencies:
   path_provider: ^1.1.0
   camera: ^0.5.4
   bubble_tab_indicator: ^0.1.4
-  
+  http: any
+  rxdart: ^0.22.0
 
 dev_dependencies:
   flutter_test:

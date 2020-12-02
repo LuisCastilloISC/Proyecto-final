@@ -1,10 +1,15 @@
 import 'dart:io';
+import 'package:proyectoIA/helpers/ApiHelper.dart';
+import 'package:proyectoIA/helpers/StatePanel.dart';
+import 'package:proyectoIA/helpers/blocProvider.dart';
 import 'package:proyectoIA/helpers/responsiveHelper.dart';
+import 'package:proyectoIA/views/ScanPage/ScanBloc.dart';
 import 'package:proyectoIA/widgets/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 import 'package:camera/camera.dart';
+import 'package:proyectoIA/widgets/loading.dart';
 import '../../helpers/colors.dart' as fcolor;
 
 class ScanPage extends StatefulWidget {
@@ -15,34 +20,65 @@ class ScanPage extends StatefulWidget {
 class _ScanPage extends State<ScanPage> {
   var img;
   File _image;
+  ApiHelper apiHelper;
   final picker = ImagePicker();
   String _imagePath;
+  ScanBloc bloc;
+  bool _visible = false;
+  bool loading = false;
+  @override
+  void initState() {
+    super.initState();
+    bloc = BlocProvider.of<ScanBloc>(context);
+    bloc.init();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: fcolor.black,
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: fcolor.green),
         backgroundColor: fcolor.black,
-        title: Text(
-          'Escaner',
-          style: TextStyle(color: fcolor.green),
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: fcolor.green),
+          backgroundColor: fcolor.black,
+          title: Text(
+            'Escaner',
+            style: TextStyle(color: fcolor.green),
+          ),
         ),
-      ),
-      body: _imagePath != null
-          ? SingleChildScrollView(
-              child: Stack(children: <Widget>[
-              capturedImageWidget(_imagePath),
-              _buildCard()
-            ]))
-          : Center(
-              child: noImageWidget(),
-            ),
-      bottomNavigationBar: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [fabWidget(), galeria()]),
-    );
+        body: StreamBuilder(
+            stream: bloc.statePanel,
+            builder: (context, snapshot) {
+              StatePanel state = snapshot.data;
+              if (state is StateError && state.code != 0) {
+                return Container();
+              } else if (state is StateSuccess && state.code != 0) {
+                return _imagePath != null
+                    ? SingleChildScrollView(
+                        child: Stack(children: <Widget>[
+                        capturedImageWidget(_imagePath),
+                        _buildCard()
+                      ]))
+                    : Center(
+                        child: noImageWidget(),
+                      );
+              } else if (state is StateLoading) {
+                return Center(child: Loading());
+              } else {
+                return _imagePath != null
+                    ? SingleChildScrollView(
+                        child: Stack(children: <Widget>[
+                        capturedImageWidget(_imagePath),
+                        _buildCard()
+                      ]))
+                    : Center(
+                        child: noImageWidget(),
+                      );
+              }
+            }),
+        bottomNavigationBar: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [fabWidget(), galeria()]));
   }
 
   Widget noImageWidget() {
@@ -106,7 +142,10 @@ class _ScanPage extends State<ScanPage> {
                 fontSize: 16,
                 color: fcolor.green,
               )),
-          onPressed: openCamera,
+          onPressed: () async {
+            var x = await openCamera();
+            bloc.sendFile(File(x));
+          },
         ));
   }
 
@@ -130,13 +169,8 @@ class _ScanPage extends State<ScanPage> {
             onPressed: () async {
               final pickedFile =
                   await picker.getImage(source: ImageSource.gallery);
-              setState(() {
-                if (pickedFile != null) {
-                  _imagePath = pickedFile.path;
-                } else {
-                  print('No image selected.');
-                }
-              });
+              File x = File(pickedFile.path);
+              bloc.sendFile(x);
             }));
   }
 
@@ -148,9 +182,7 @@ class _ScanPage extends State<ScanPage> {
           builder: (context) => CameraPage(cameras),
         ),
       );
-      setState(() {
-        _imagePath = imagePath;
-      });
+      return imagePath;
     });
   }
 
