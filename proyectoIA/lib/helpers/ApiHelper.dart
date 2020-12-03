@@ -36,14 +36,15 @@ class ApiHelper {
       request.files.add(multipartFile);
 
       // send
-      print('sssss');
+    
       var response = await request.send();
-      print(response.statusCode);
+     
 
       // listen for response
       response.stream.transform(utf8.decoder).listen((value) {
         print(value);
       });
+      return {"Tipo":"Animal"};
     } catch (x) {
       print(x);
     }

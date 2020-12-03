@@ -9,7 +9,8 @@ class ScanBloc extends Bloc {
   final ApiHelper api = new ApiHelper();
   final _statePanel = BehaviorSubject<StatePanel>();
   Stream<StatePanel> get statePanel => _statePanel.stream;
-
+  var _entidad;
+  get entidad => _entidad;
   void init() {
     _statePanel.add(new StatePanel.none());
   }
@@ -17,9 +18,9 @@ class ScanBloc extends Bloc {
   Future sendFile(File path) async {
     try {
       _statePanel.add(new StatePanel.loading());
-       await api.postUserImageFile(path);
+      _entidad = await api.postUserImageFile(path);
       //await api.test();
-      // _statePanel.add(new StatePanel.success("OK", null, 200));
+       _statePanel.add(new StatePanel.success("OK", null, 200));
     } catch (err) {}
   }
 

@@ -64,6 +64,7 @@ class _ScanPage extends State<ScanPage> {
               } else if (state is StateLoading) {
                 return Center(child: Loading());
               } else {
+                print(_imagePath);
                 return _imagePath != null
                     ? SingleChildScrollView(
                         child: Stack(children: <Widget>[
@@ -142,10 +143,7 @@ class _ScanPage extends State<ScanPage> {
                 fontSize: 16,
                 color: fcolor.green,
               )),
-          onPressed: () async {
-            var x = await openCamera();
-            bloc.sendFile(File(x));
-          },
+          onPressed: openCamera,
         ));
   }
 
@@ -170,7 +168,10 @@ class _ScanPage extends State<ScanPage> {
               final pickedFile =
                   await picker.getImage(source: ImageSource.gallery);
               File x = File(pickedFile.path);
-              bloc.sendFile(x);
+              await bloc.sendFile(x);
+              setState(() {
+                _imagePath = x.path;
+              });
             }));
   }
 
@@ -182,7 +183,10 @@ class _ScanPage extends State<ScanPage> {
           builder: (context) => CameraPage(cameras),
         ),
       );
-      return imagePath;
+      await bloc.sendFile(File(imagePath));
+      setState(() {
+        _imagePath = imagePath;
+      });
     });
   }
 
@@ -238,7 +242,9 @@ class _ScanPage extends State<ScanPage> {
                   endIndent: responsive.percentWidth(0.1),
                   color: fcolor.green,
                   thickness: 1)),
-          _buildConditions(),
+          bloc.entidad["Tipo"] == "Planta"
+              ? _buildConditions()
+              : _buildConditionsPet(),
           Container(
               decoration: BoxDecoration(
                   color: fcolor.black, border: Border.all(color: fcolor.black)),
@@ -247,7 +253,7 @@ class _ScanPage extends State<ScanPage> {
                   endIndent: responsive.percentWidth(0.1),
                   color: fcolor.green,
                   thickness: 1)),
-          _buildCare()
+          bloc.entidad["Tipo"] == "Planta" ? _buildCare() : _buildCarePet()
         ],
       )),
     );
@@ -692,6 +698,296 @@ class _ScanPage extends State<ScanPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Propagación',
+                          style: TextStyle(
+                              color: Colors.lightGreen,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 16)),
+                      Container(
+                          child: Text(
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(color: fcolor.green),
+                      ))
+                    ],
+                  ))
+                ]),
+          )
+        ]));
+  }
+
+  _buildConditionsPet() {
+    return Container(
+        color: fcolor.black,
+        padding: EdgeInsets.only(
+          left: 15,
+          right: 15,
+        ),
+        child: Column(children: <Widget>[
+          Row(
+            children: [
+              Icon(
+                Icons.list,
+                color: fcolor.green,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                'Condiciones',
+                style: TextStyle(
+                    color: fcolor.green,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 20),
+              )
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [Icon(Icons.star, color: Colors.lightGreen)],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Flexible(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Difilcultad de cuidado',
+                          style: TextStyle(
+                              color: Colors.lightGreen,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 16)),
+                      Container(
+                          child: Text(
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(color: fcolor.green),
+                      ))
+                    ],
+                  ))
+                ]),
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [
+                      Icon(Icons.room_service, color: Colors.lightGreen)
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Flexible(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Cantidad de comida',
+                          style: TextStyle(
+                              color: Colors.lightGreen,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 16)),
+                      Container(
+                          child: Text(
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(color: fcolor.green),
+                      ))
+                    ],
+                  ))
+                ]),
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [
+                      Icon(Icons.wb_iridescent, color: Colors.lightGreen)
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Flexible(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Golosinas',
+                          style: TextStyle(
+                              color: Colors.lightGreen,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 16)),
+                      Container(
+                          child: Text(
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(color: fcolor.green),
+                      ))
+                    ],
+                  ))
+                ]),
+          ),
+        ]));
+  }
+
+  _buildCarePet() {
+    return Container(
+        color: fcolor.black,
+        padding: EdgeInsets.only(
+          left: 15,
+          right: 15,
+        ),
+        child: Column(children: <Widget>[
+          Row(
+            children: [
+              Icon(
+                Icons.local_hospital,
+                color: fcolor.green,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                'Cuidados',
+                style: TextStyle(
+                    color: fcolor.green,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 20),
+              )
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [Icon(Icons.security, color: Colors.lightGreen)],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Flexible(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Higiene',
+                          style: TextStyle(
+                              color: Colors.lightGreen,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 16)),
+                      Container(
+                          child: Text(
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(color: fcolor.green),
+                      ))
+                    ],
+                  ))
+                ]),
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [
+                      Icon(Icons.restaurant, color: Colors.lightGreen)
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Flexible(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Alimentación',
+                          style: TextStyle(
+                              color: Colors.lightGreen,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 16)),
+                      Container(
+                          child: Text(
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(color: fcolor.green),
+                      ))
+                    ],
+                  ))
+                ]),
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [Icon(Icons.timer, color: Colors.lightGreen)],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Flexible(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Ejercicio fisico',
+                          style: TextStyle(
+                              color: Colors.lightGreen,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 16)),
+                      Container(
+                          child: Text(
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(color: fcolor.green),
+                      ))
+                    ],
+                  ))
+                ]),
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [
+                      Icon(Icons.add_circle_outline, color: Colors.lightGreen)
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Flexible(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Reproducción',
                           style: TextStyle(
                               color: Colors.lightGreen,
                               fontWeight: FontWeight.normal,
