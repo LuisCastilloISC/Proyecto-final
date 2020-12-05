@@ -24,7 +24,8 @@ class _MainPageState extends State<MainPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold( backgroundColor:  fcolor.black,
+    return Scaffold(
+      backgroundColor: fcolor.black,
       appBar: _buildAppBar(),
       body: _buildBody(),
       bottomNavigationBar: Container(
@@ -154,7 +155,13 @@ class _MainPageState extends State<MainPage>
           SizedBox(
             height: 50,
           ),
-          Text('Descripcion animal',style: TextStyle(color:  fcolor.green),),
+          Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                'Descubre a los seres vivos que te rodean,\nutlizando tu cámara o galería ',
+                style: TextStyle(color: fcolor.green, fontSize: 24),
+                textAlign: TextAlign.justify,
+              )),
           SizedBox(
             height: 100,
           ),
@@ -220,7 +227,13 @@ class _MainPageState extends State<MainPage>
           SizedBox(
             height: 50,
           ),
-          Text('Descripcion Planta',style: TextStyle(color:fcolor.green),),
+          Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                'Descubre la flora que te rodea, utlizando \nsimplemente tu cámara o galería de fotos',
+                style: TextStyle(color: fcolor.green, fontSize: 24),
+                textAlign: TextAlign.justify,
+              )),
           SizedBox(
             height: 100,
           ),
