@@ -13,7 +13,7 @@ data_entrenamiento = './data/entrenamiento'
 data_validacion = './data/validacion'
 
 ##Parametros de Red Neuronal
-epocas = 150
+epocas = 80
 altura, longitud = 100,100
 batch_size = 32
 pasos = 1000
@@ -23,7 +23,7 @@ filtrosConv2 = 64
 tamano_filtro1 = (3,3)
 tamano_filtro2 = (2,2)
 tamano_pool = (2,2)
-clases = 8
+clases = 5
 lr = 0.0005
 
 ##Pre procesamiento de Imagenes
