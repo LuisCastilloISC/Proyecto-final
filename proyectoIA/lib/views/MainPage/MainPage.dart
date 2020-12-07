@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:proyectoIA/helpers/blocProvider.dart';
 import 'package:proyectoIA/helpers/responsiveHelper.dart';
+import 'package:proyectoIA/views/ScanPage/ScanBloc.dart';
+import 'package:proyectoIA/views/ScanPage/ScanPage.dart';
 import '../../helpers/colors.dart' as fcolor;
 
 class MainPage extends StatefulWidget {
@@ -42,7 +45,18 @@ class _MainPageState extends State<MainPage>
                   fontSize: 16,
                   color: fcolor.green,
                 )),
-            onPressed: () => Navigator.pushNamed(context, 'Scan'),
+            onPressed: () {
+              print(_tabController.index);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => BlocProvider(
+                            bloc: ScanBloc(),
+                            child: ScanPage(
+                              type: _tabController.index,
+                            ),
+                          )));
+            },
           )),
     );
   }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:proyectoIA/helpers/blocProvider.dart';
 import 'package:proyectoIA/views/MainPage/MainPage.dart';
 import 'package:proyectoIA/views/ScanPage/ScanBloc.dart';

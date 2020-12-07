@@ -11,8 +11,13 @@ import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:proyectoIA/widgets/loading.dart';
 import '../../helpers/colors.dart' as fcolor;
+import '../../widgets/ups.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ScanPage extends StatefulWidget {
+  final int type;
+
+  const ScanPage({Key key, this.type}) : super(key: key);
   @override
   _ScanPage createState() => _ScanPage();
 }
@@ -20,6 +25,7 @@ class ScanPage extends StatefulWidget {
 class _ScanPage extends State<ScanPage> {
   var img;
   File _image;
+  var barText = "Escaner";
   ApiHelper apiHelper;
   final picker = ImagePicker();
   String _imagePath;
@@ -30,7 +36,7 @@ class _ScanPage extends State<ScanPage> {
   void initState() {
     super.initState();
     bloc = BlocProvider.of<ScanBloc>(context);
-    bloc.init();
+    bloc.init(widget.type);
   }
 
   @override
@@ -41,7 +47,7 @@ class _ScanPage extends State<ScanPage> {
           iconTheme: IconThemeData(color: fcolor.green),
           backgroundColor: fcolor.black,
           title: Text(
-            'Escaner',
+            barText,
             style: TextStyle(color: fcolor.green),
           ),
         ),
@@ -50,7 +56,7 @@ class _ScanPage extends State<ScanPage> {
             builder: (context, snapshot) {
               StatePanel state = snapshot.data;
               if (state is StateError && state.code != 0) {
-                return Container();
+                return UpsPage();
               } else if (state is StateSuccess && state.code != 0) {
                 return _imagePath != null
                     ? SingleChildScrollView(
@@ -64,7 +70,6 @@ class _ScanPage extends State<ScanPage> {
               } else if (state is StateLoading) {
                 return Center(child: Loading());
               } else {
-                print(_imagePath);
                 return _imagePath != null
                     ? SingleChildScrollView(
                         child: Stack(children: <Widget>[
@@ -171,6 +176,7 @@ class _ScanPage extends State<ScanPage> {
               await bloc.sendFile(x);
               setState(() {
                 _imagePath = x.path;
+                barText = "Resultado:" + bloc.entidad.nombre;
               });
             }));
   }
@@ -186,6 +192,7 @@ class _ScanPage extends State<ScanPage> {
       await bloc.sendFile(File(imagePath));
       setState(() {
         _imagePath = imagePath;
+        barText = "Resultado:" + bloc.entidad.nombre;
       });
     });
   }
@@ -242,7 +249,7 @@ class _ScanPage extends State<ScanPage> {
                   endIndent: responsive.percentWidth(0.1),
                   color: fcolor.green,
                   thickness: 1)),
-          bloc.entidad["Tipo"] == "Planta"
+          bloc.entidad.tipo == "Planta"
               ? _buildConditions()
               : _buildConditionsPet(),
           Container(
@@ -253,7 +260,7 @@ class _ScanPage extends State<ScanPage> {
                   endIndent: responsive.percentWidth(0.1),
                   color: fcolor.green,
                   thickness: 1)),
-          bloc.entidad["Tipo"] == "Planta" ? _buildCare() : _buildCarePet()
+          bloc.entidad.tipo == "Planta" ? _buildCare() : _buildCarePet()
         ],
       )),
     );
@@ -298,28 +305,60 @@ class _ScanPage extends State<ScanPage> {
                   Container(
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(40.0),
-                          child: Image.asset('assets/images/dev/plant.jpg')),
+                          child: FadeInImage.assetNetwork(
+                              fit: BoxFit.cover,
+                              imageErrorBuilder: (BuildContext context,
+                                  Object exception, StackTrace stackTrace) {
+                                return Image.asset(
+                                    'assets/images/dev/plant.jpg');
+                              },
+                              placeholder: 'assets/images/dev/loading.gif',
+                              image: bloc.entidad.listImgurl[0])),
                       decoration: new BoxDecoration(
                           color: fcolor.black,
                           borderRadius: BorderRadius.circular(8.0))),
                   Container(
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(40.0),
-                          child: Image.asset('assets/images/dev/plant.jpg')),
+                          child: FadeInImage.assetNetwork(
+                              fit: BoxFit.cover,
+                              imageErrorBuilder: (BuildContext context,
+                                  Object exception, StackTrace stackTrace) {
+                                return Image.asset(
+                                    'assets/images/dev/plant.jpg');
+                              },
+                              placeholder: 'assets/images/dev/loading.gif',
+                              image: bloc.entidad.listImgurl[1])),
                       decoration: new BoxDecoration(
                           color: fcolor.black,
                           borderRadius: BorderRadius.circular(8.0))),
                   Container(
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(40.0),
-                          child: Image.asset('assets/images/dev/plant.jpg')),
+                          child: FadeInImage.assetNetwork(
+                              fit: BoxFit.cover,
+                              imageErrorBuilder: (BuildContext context,
+                                  Object exception, StackTrace stackTrace) {
+                                return Image.asset(
+                                    'assets/images/dev/plant.jpg');
+                              },
+                              placeholder: 'assets/images/dev/loading.gif',
+                              image: bloc.entidad.listImgurl[2])),
                       decoration: new BoxDecoration(
                           color: fcolor.black,
                           borderRadius: BorderRadius.circular(40.0))),
                   Container(
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(40.0),
-                          child: Image.asset('assets/images/dev/plant.jpg')),
+                          child: FadeInImage.assetNetwork(
+                              fit: BoxFit.cover,
+                              imageErrorBuilder: (BuildContext context,
+                                  Object exception, StackTrace stackTrace) {
+                                return Image.asset(
+                                    'assets/images/dev/plant.jpg');
+                              },
+                              placeholder: 'assets/images/dev/loading.gif',
+                              image: bloc.entidad.listImgurl[3])),
                       decoration: new BoxDecoration(
                           color: fcolor.black,
                           borderRadius: BorderRadius.circular(40.0)))
@@ -353,7 +392,7 @@ class _ScanPage extends State<ScanPage> {
             ),
           ]),
           Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            bloc.entidad.descripcion,
             textAlign: TextAlign.justify,
             style: TextStyle(color: fcolor.green),
           )
@@ -385,7 +424,7 @@ class _ScanPage extends State<ScanPage> {
             ),
           ]),
           Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            bloc.entidad.curiosidades,
             textAlign: TextAlign.justify,
             style: TextStyle(color: fcolor.green),
           )
@@ -419,11 +458,7 @@ class _ScanPage extends State<ScanPage> {
                 ),
               ]),
               Text(
-                'Alto: 12',
-                style: TextStyle(color: fcolor.green),
-              ),
-              Text(
-                'Tamaño de hoja:12',
+                bloc.entidad.caracteristicas,
                 style: TextStyle(color: fcolor.green),
               ),
             ]));
@@ -479,7 +514,7 @@ class _ScanPage extends State<ScanPage> {
                               fontSize: 16)),
                       Container(
                           child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        bloc.entidad.dificultad,
                         textAlign: TextAlign.justify,
                         style: TextStyle(color: fcolor.green),
                       ))
@@ -511,7 +546,9 @@ class _ScanPage extends State<ScanPage> {
                               fontSize: 16)),
                       Container(
                           child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        bloc.entidad.luz == null
+                            ? 'Información en investigación'
+                            : bloc.entidad.luz,
                         textAlign: TextAlign.justify,
                         style: TextStyle(color: fcolor.green),
                       ))
@@ -545,7 +582,9 @@ class _ScanPage extends State<ScanPage> {
                               fontSize: 16)),
                       Container(
                           child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        bloc.entidad.fertilizante == null
+                            ? 'Información en investigación'
+                            : bloc.entidad.fertilizante,
                         textAlign: TextAlign.justify,
                         style: TextStyle(color: fcolor.green),
                       ))
@@ -606,7 +645,9 @@ class _ScanPage extends State<ScanPage> {
                               fontSize: 16)),
                       Container(
                           child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        bloc.entidad.agua == null
+                            ? 'Información en investigación'
+                            : bloc.entidad.agua,
                         textAlign: TextAlign.justify,
                         style: TextStyle(color: fcolor.green),
                       ))
@@ -638,7 +679,9 @@ class _ScanPage extends State<ScanPage> {
                               fontSize: 16)),
                       Container(
                           child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        bloc.entidad.fertilizacion == null
+                            ? 'Información en investigación'
+                            : bloc.entidad.fertilizacion,
                         textAlign: TextAlign.justify,
                         style: TextStyle(color: fcolor.green),
                       ))
@@ -670,7 +713,9 @@ class _ScanPage extends State<ScanPage> {
                               fontSize: 16)),
                       Container(
                           child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        bloc.entidad.temporada == null
+                            ? 'Información en investigación'
+                            : bloc.entidad.temporada,
                         textAlign: TextAlign.justify,
                         style: TextStyle(color: fcolor.green),
                       ))
@@ -704,7 +749,9 @@ class _ScanPage extends State<ScanPage> {
                               fontSize: 16)),
                       Container(
                           child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        bloc.entidad.propagacion == null
+                            ? 'Información en investigación'
+                            : bloc.entidad.propagacion,
                         textAlign: TextAlign.justify,
                         style: TextStyle(color: fcolor.green),
                       ))
@@ -765,7 +812,9 @@ class _ScanPage extends State<ScanPage> {
                               fontSize: 16)),
                       Container(
                           child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        bloc.entidad.dificultad == null
+                            ? 'Información en investigación'
+                            : bloc.entidad.dificultad,
                         textAlign: TextAlign.justify,
                         style: TextStyle(color: fcolor.green),
                       ))
@@ -799,7 +848,9 @@ class _ScanPage extends State<ScanPage> {
                               fontSize: 16)),
                       Container(
                           child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        bloc.entidad.comida == null
+                            ? 'Información en investigación'
+                            : bloc.entidad.comida,
                         textAlign: TextAlign.justify,
                         style: TextStyle(color: fcolor.green),
                       ))
@@ -833,7 +884,9 @@ class _ScanPage extends State<ScanPage> {
                               fontSize: 16)),
                       Container(
                           child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        bloc.entidad.golosinas == null
+                            ? 'Información en investigación'
+                            : bloc.entidad.golosinas,
                         textAlign: TextAlign.justify,
                         style: TextStyle(color: fcolor.green),
                       ))
@@ -894,7 +947,9 @@ class _ScanPage extends State<ScanPage> {
                               fontSize: 16)),
                       Container(
                           child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        bloc.entidad.higiene == null
+                            ? 'Información en investigación'
+                            : bloc.entidad.higiene,
                         textAlign: TextAlign.justify,
                         style: TextStyle(color: fcolor.green),
                       ))
@@ -928,7 +983,9 @@ class _ScanPage extends State<ScanPage> {
                               fontSize: 16)),
                       Container(
                           child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        bloc.entidad.alimentacion == null
+                            ? 'Información en investigación'
+                            : bloc.entidad.alimentacion,
                         textAlign: TextAlign.justify,
                         style: TextStyle(color: fcolor.green),
                       ))
@@ -960,7 +1017,9 @@ class _ScanPage extends State<ScanPage> {
                               fontSize: 16)),
                       Container(
                           child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        bloc.entidad.fisico == null
+                            ? 'Información en investigación'
+                            : bloc.entidad.fisico,
                         textAlign: TextAlign.justify,
                         style: TextStyle(color: fcolor.green),
                       ))
@@ -994,7 +1053,9 @@ class _ScanPage extends State<ScanPage> {
                               fontSize: 16)),
                       Container(
                           child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+                        bloc.entidad.reproduccion == null
+                            ? 'Información en investigación'
+                            : bloc.entidad.reproduccion,
                         textAlign: TextAlign.justify,
                         style: TextStyle(color: fcolor.green),
                       ))
